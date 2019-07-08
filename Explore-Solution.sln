@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explore-SolutionAPI", "Explore-SolutionAPI\Explore-SolutionAPI.csproj", "{548110F4-F18E-4581-97B2-9A682B59E169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreSolution.API", "Explore-SolutionAPI\ExploreSolution.API.csproj", "{548110F4-F18E-4581-97B2-9A682B59E169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explore.DataAccess", "Explore.DataAccess\Explore.DataAccess.csproj", "{E940F2AE-9DAA-4B46-B709-362B330B7686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explore.DataAccess", "Explore.DataAccess\Explore.DataAccess.csproj", "{E940F2AE-9DAA-4B46-B709-362B330B7686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explore.DataAccess.Abstraction", "Explore.DataAccess.Abstraction\Explore.DataAccess.Abstraction.csproj", "{23540169-94CF-4DBC-9CC8-6A24256BD00B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explore.DataAccess.Abstraction", "Explore.DataAccess.Abstraction\Explore.DataAccess.Abstraction.csproj", "{23540169-94CF-4DBC-9CC8-6A24256BD00B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
