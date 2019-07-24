@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Explore.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExploreSolution.Controllers
@@ -12,8 +14,12 @@ namespace ExploreSolution.Controllers
     {
         // GET api/values
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<string>> Get()
         {
+            ExploreDb db = new ExploreDb();
+            db.Tours.Add(new Explore.DataAccess.Abstraction.Entities.TourEntity() { Name = "first", Description ="desc"});
+            db.SaveChanges();
             return new string[] { "value1", "value2" };
         }
 

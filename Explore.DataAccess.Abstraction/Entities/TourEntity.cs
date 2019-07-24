@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Explore.DataAccess.Abstraction.Abstraction;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Explore.DataAccess.Abstraction.Entities
 {
-    public class TourEntity
+    public class TourEntity : IEntity
     {
+        [Key]
         public int TourId { get; set; }
 
         [Required]

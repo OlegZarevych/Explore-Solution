@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Explore.DataAccess.Abstraction.Abstraction;
+using System.ComponentModel.DataAnnotations;
 
 namespace Explore.DataAccess.Abstraction.Entities
 {
-    public class ReservationEntity
+    public class ReservationEntity : IEntity
     {
+        [Key]
         public int ReservationId { get; set; }
 
         public int TourId { get; set; }
