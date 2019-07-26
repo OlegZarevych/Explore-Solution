@@ -19,6 +19,7 @@ namespace ExploreSolution.API.Controllers
 
         [Authorize]
         [HttpPost]
+        [Route("[action]")]
         public ActionResult Add([FromBody] TourDto tour)
         {
             if (!ModelState.IsValid)

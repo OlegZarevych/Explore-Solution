@@ -13,6 +13,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using ExploreSolution.Services;
 using ExploreSolution.API.Services;
+using Explore.Services.Services;
+using Explore.Services.Abstraction;
+using Explore.DataAccess.Abstraction;
+using Explore.DataAccess.Repositories;
+using Explore.DataAccess.Abstraction.Entities;
 
 namespace ExploreSolution
 {
@@ -29,6 +34,8 @@ namespace ExploreSolution
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<ITourService, TourService>();
+            //services.AddTransient<IRepository<TourEntity>, TourRepository>();
 
             // Get secret
             services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
