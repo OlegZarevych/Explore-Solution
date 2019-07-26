@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using AutoMapper.Mappers;
+﻿using AutoMapper;
 
 namespace Explore.Dto.Abstraction.CustomMapper
 {
@@ -16,7 +12,6 @@ namespace Explore.Dto.Abstraction.CustomMapper
 
             IMapper mapper = config.CreateMapper();
 
-            //return Mapper.Map<TFrom, TTo>(fromModel);
             return mapper.Map<TFrom, TTo>(fromModel);
         }
     }

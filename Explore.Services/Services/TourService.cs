@@ -8,19 +8,18 @@ namespace Explore.Services.Services
 {
     public class TourService : ITourService
     {
-        //private readonly IRepository<TourEntity> tourRepo;
+        private readonly ITourRepository tourRepo;
 
-        //public TourService(IRepository<TourEntity> tourRepo)
-        public TourService()
+        public TourService(ITourRepository tourRepo)
         {
-            //this.tourRepo = tourRepo;
+            this.tourRepo = tourRepo;
         }
 
         public bool AddTour(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
 
-            //tourRepo.Add(tourEntity);
+            tourRepo.Add(tourEntity);
             return true;
         }
     }

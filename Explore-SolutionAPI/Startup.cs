@@ -35,7 +35,7 @@ namespace ExploreSolution
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITourService, TourService>();
-            //services.AddTransient<IRepository<TourEntity>, TourRepository>();
+            services.AddSingleton<ITourRepository, TourRepository>();
 
             // Get secret
             services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));

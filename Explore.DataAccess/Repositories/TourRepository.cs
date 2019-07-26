@@ -4,13 +4,13 @@ using Explore.DataAccess.Abstraction.Entities;
 
 namespace Explore.DataAccess.Repositories
 {
-    public class TourRepository : IRepository<TourEntity>
+    public class TourRepository : ITourRepository
     {
         private readonly ExploreDb exploreDb;
 
-        public TourRepository(ExploreDb exploreDb)
+        public TourRepository()
         {
-            this.exploreDb = exploreDb;
+            this.exploreDb = new ExploreDb();
         }
 
         public void Add<T>(T item)
