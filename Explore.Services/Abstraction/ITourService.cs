@@ -1,7 +1,9 @@
-﻿namespace Explore.Services.Abstraction
+﻿using ExploreSolution.DTO;
+
+namespace Explore.Services.Abstraction
 {
     public interface ITourService
     {
-        bool AddTour();
+        bool AddTour(TourDto tour);
     }
 }

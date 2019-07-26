@@ -1,6 +1,7 @@
 ﻿using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
 using Explore.Services.Abstraction;
+using ExploreSolution.DTO;
 
 namespace Explore.Services.Services
 {
@@ -15,9 +16,9 @@ namespace Explore.Services.Services
             this.tourRepo = tourRepo;
         }
 
-        public bool AddTour()
+        public bool AddTour(TourDto tour)
         {
-            //tourRepo.Add();
+            tourRepo.Add();
             return true;
         }
     }
