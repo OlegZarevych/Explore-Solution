@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="2.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scheme\" />
+    <PackageReference Include="Autofac" Version="4.9.3" />
   </ItemGroup>
 
 </Project>
