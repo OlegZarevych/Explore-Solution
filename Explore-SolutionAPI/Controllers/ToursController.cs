@@ -31,5 +31,13 @@ namespace ExploreSolution.API.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult GetAll()
+        {
+            return Ok(tourService.GetAllTours());
+        }
     }
 }

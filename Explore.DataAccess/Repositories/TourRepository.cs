@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
 
@@ -26,7 +27,7 @@ namespace Explore.DataAccess.Repositories
 
         public IEnumerable<TourEntity> GetAll()
         {
-            throw new System.NotImplementedException();
+            return exploreDb.Tours.OrderBy(item => item.Id);
         }
 
         public void Remove()
