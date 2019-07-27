@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
 using Explore.Dto.Abstraction.CustomMapper;
@@ -36,6 +37,17 @@ namespace Explore.Services.Services
             entitiesList.ToList().ForEach(i => tours.Add(BaseMapper<TourEntity, TourDto>.Map(i)));
 
             return tours;
+        }
+
+        public Task<IEnumerable<TourDto>> GetCustomersAsync()
+        {
+            return Task.FromResult(this.GetAllTours().AsEnumerable());
+        }
+
+        public Task<TourDto> GetTourByNameAsync(string name)
+        {
+            var entitiesLst = this.GetAllTours();
+            return Task.FromResult(entitiesLst.Single(o => Equals(o.Name, name)));
         }
     }
 }
