@@ -12,7 +12,14 @@ namespace Explore.Services.Abstraction
 
         Task<IEnumerable<TourDto>> GetAllToursAsync();
 
-
         Task<TourDto> GetTourByNameAsync(string name);
+
+        TourDto GetTourById(int id);
+
+        bool UpdateTourById(int id, TourDto tour);
+
+        bool RemoveTourById(int id);
+
+        IList<TourDto> SearchTourByName(string name);
     }
 }

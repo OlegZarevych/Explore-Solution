@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
+using System;
 
 namespace Explore.DataAccess.Repositories
 {
@@ -20,9 +21,9 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
-        public TourEntity Find()
+        public IEnumerable<TourEntity> FindById(int id)
         {
-            throw new System.NotImplementedException();
+            return exploreDb.Tours.Where(item => item.TourId == id);
         }
 
         public IEnumerable<TourEntity> GetAll()

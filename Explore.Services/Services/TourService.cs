@@ -44,10 +44,31 @@ namespace Explore.Services.Services
             return Task.FromResult(this.GetAllTours().AsEnumerable());
         }
 
+        public TourDto GetTourById(int id)
+        {
+            var entity = tourRepo.FindById(id).FirstOrDefault();
+            return BaseMapper<TourEntity, TourDto>.Map(entity);
+        }
+
         public Task<TourDto> GetTourByNameAsync(string name)
         {
             var entitiesLst = this.GetAllTours();
             return Task.FromResult(entitiesLst.Single(o => Equals(o.Name, name)));
+        }
+
+        public bool RemoveTourById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IList<TourDto> SearchTourByName(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool UpdateTourById(int id, TourDto tour)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
