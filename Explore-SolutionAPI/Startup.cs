@@ -18,6 +18,11 @@ using Explore.Services.Abstraction;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Repositories;
 using Explore.DataAccess.Abstraction.Entities;
+using ExploreSolution.API.GraphQL.Scheme;
+using ExploreSolution.API.GraphQL;
+using ExploreSolution.API.GraphQL.SchemeQl;
+using GraphQL.Server;
+using GraphQL;
 
 namespace ExploreSolution
 {
@@ -36,6 +41,20 @@ namespace ExploreSolution
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITourService, TourService>();
             services.AddSingleton<ITourRepository, TourRepository>();
+
+            // Graph QL
+            services.AddSingleton<TourType>();
+            services.AddSingleton<ToursQuery>();
+            services.AddSingleton<TourScheme>();
+            services.AddSingleton<IDependencyResolver>(
+                c=> new FuncDependencyResolver(type => 
+                c.GetRequiredService(type)));
+            //services.AddGraphQLHttp();
+
+            services.AddGraphQL(options =>
+            {
+                options.EnableMetrics = true;
+            });
 
             // Get secret
             services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
@@ -77,6 +96,7 @@ namespace ExploreSolution
                 app.UseHsts();
             }
 
+            app.UseGraphQL<TourScheme>("/graphql");
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseHttpsRedirection();

@@ -9,6 +9,8 @@ namespace ExploreSolution.API.GraphQL.Scheme
     {
         public TourType(ITourService tour)
         {
+            this.Name = nameof(TourDto);
+
             Field(c => c.Name);
         }
     }

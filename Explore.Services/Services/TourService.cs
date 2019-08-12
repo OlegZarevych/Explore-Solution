@@ -39,7 +39,7 @@ namespace Explore.Services.Services
             return tours;
         }
 
-        public Task<IEnumerable<TourDto>> GetCustomersAsync()
+        public Task<IEnumerable<TourDto>> GetAllToursAsync()
         {
             return Task.FromResult(this.GetAllTours().AsEnumerable());
         }

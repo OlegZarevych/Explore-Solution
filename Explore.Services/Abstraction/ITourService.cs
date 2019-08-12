@@ -10,7 +10,8 @@ namespace Explore.Services.Abstraction
 
         IList<TourDto> GetAllTours();
 
-        Task<IEnumerable<TourDto>> GetCustomersAsync();
+        Task<IEnumerable<TourDto>> GetAllToursAsync();
+
 
         Task<TourDto> GetTourByNameAsync(string name);
     }
