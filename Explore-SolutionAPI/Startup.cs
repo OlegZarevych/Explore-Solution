@@ -23,6 +23,7 @@ using ExploreSolution.API.GraphQL;
 using ExploreSolution.API.GraphQL.SchemeQl;
 using GraphQL.Server;
 using GraphQL;
+using ExploreSolution.API.Middleware;
 
 namespace ExploreSolution
 {
@@ -96,6 +97,7 @@ namespace ExploreSolution
                 app.UseHsts();
             }
 
+            app.UseMiddleware<CustomHeaderMiddleware>();
             app.UseGraphQL<TourScheme>("/graphql");
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
