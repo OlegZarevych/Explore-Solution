@@ -83,6 +83,15 @@ namespace ExploreSolution
 
             services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
             services.AddScoped<IUserManagementService, UserManagementService>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Version = "v1",
+                    Title = "Api Documentation",
+                    TermsOfService = "None"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +107,11 @@ namespace ExploreSolution
             }
 
             app.UseMiddleware<CustomHeaderMiddleware>();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            { });
+
             app.UseGraphQL<TourScheme>("/graphql");
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
