@@ -46,7 +46,7 @@ namespace Explore.Services.Services
 
         public TourDto GetTourById(int id)
         {
-            var entity = tourRepo.FindById(id).FirstOrDefault();
+            var entity = tourRepo.FindById(id);
             return BaseMapper<TourEntity, TourDto>.Map(entity);
         }
 
@@ -63,12 +63,16 @@ namespace Explore.Services.Services
 
         public IList<TourDto> SearchTourByName(string name)
         {
-            throw new System.NotImplementedException();
+            var tours = this.GetAllTours();
+            return tours.Where(item => item.Name.Contains(name)).ToList();
         }
 
         public bool UpdateTourById(int id, TourDto tour)
         {
-            throw new System.NotImplementedException();
+            var newTour = BaseMapper<TourDto, TourEntity>.Map(tour);
+            newTour.TourId = id;
+            tourRepo.Update(newTour);
+            return true;
         }
     }
 }

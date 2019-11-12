@@ -21,9 +21,9 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
-        public IEnumerable<TourEntity> FindById(int id)
+        public TourEntity FindById(int id)
         {
-            return exploreDb.Tours.Where(item => item.TourId == id);
+            return exploreDb.Tours.Where(item => item.TourId == id).SingleOrDefault();
         }
 
         public IEnumerable<TourEntity> GetAll()
@@ -31,14 +31,14 @@ namespace Explore.DataAccess.Repositories
             return exploreDb.Tours.OrderBy(item => item.Id);
         }
 
-        public void Remove()
+        public void Remove(int id)
         {
-            throw new System.NotImplementedException();
+            exploreDb.Tours.Remove(this.FindById(id));
         }
 
-        public void Update()
+        public void Update<T>(T item)
         {
-            throw new System.NotImplementedException();
+            exploreDb.Tours.Update(item as TourEntity);
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Explore.DataAccess.Abstraction
     {
         void Add<T>(T item);
         IEnumerable<T> GetAll();
-        IEnumerable<T> FindById(int id);
-        void Remove();
-        void Update();
+        T FindById(int id);
+        void Remove(int id);
+        void Update<T>(T item);
     }
 }
