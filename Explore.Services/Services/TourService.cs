@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
 using Explore.Dto.Abstraction.CustomMapper;
+using Explore.Dto.Abstraction.DTO;
 using Explore.Services.Abstraction;
 using ExploreSolution.DTO;
 
@@ -26,42 +27,54 @@ namespace Explore.Services.Services
             return true;
         }
 
-        public IList<TourDto> GetAllTours()
+        public async void AddTourAsync(TourDto tour)
+        {
+            TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
+
+            tourRepo.AddAsync(tourEntity);
+        }
+
+        public IList<Tour> GetAllTours()
         {
             var entitiesList = this.tourRepo.GetAll();
 
             //IEnumerable<TourDto> tours = BaseMapper<IEnumerable<TourEntity>, IEnumerable<TourDto>>.Map(entitiesList);
 
-            IList<TourDto> tours = new List<TourDto>();
+            IList<Tour> tours = new List<Tour>();
 
-            entitiesList.ToList().ForEach(i => tours.Add(BaseMapper<TourEntity, TourDto>.Map(i)));
+            entitiesList.ToList().ForEach(i => tours.Add(BaseMapper<TourEntity, Tour>.Map(i)));
 
             return tours;
         }
 
-        public Task<IEnumerable<TourDto>> GetAllToursAsync()
+        public Task<IEnumerable<Tour>> GetAllToursAsync()
         {
             return Task.FromResult(this.GetAllTours().AsEnumerable());
         }
 
-        public TourDto GetTourById(int id)
+        public Tour GetTourById(int id)
         {
             var entity = tourRepo.FindById(id);
-            return BaseMapper<TourEntity, TourDto>.Map(entity);
+            return BaseMapper<TourEntity, Tour>.Map(entity);
         }
 
-        public Task<TourDto> GetTourByNameAsync(string name)
+        public Task<Tour> GetTourByNameAsync(string name)
         {
             var entitiesLst = this.GetAllTours();
             return Task.FromResult(entitiesLst.Single(o => Equals(o.Name, name)));
         }
 
-        public bool RemoveTourById(int id)
+        public void RemoveTourById(int id)
         {
-            throw new System.NotImplementedException();
+            tourRepo.Remove(id);
         }
 
-        public IList<TourDto> SearchTourByName(string name)
+        public void RemoveTourByIdAsync(int id)
+        {
+            tourRepo.RemoveAsync(id);
+        }
+
+        public IList<Tour> SearchTourByName(string name)
         {
             var tours = this.GetAllTours();
             return tours.Where(item => item.Name.Contains(name)).ToList();
@@ -70,7 +83,9 @@ namespace Explore.Services.Services
         public bool UpdateTourById(int id, TourDto tour)
         {
             var newTour = BaseMapper<TourDto, TourEntity>.Map(tour);
+
             newTour.TourId = id;
+
             tourRepo.Update(newTour);
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using ExploreSolution.DTO;
+﻿using Explore.Dto.Abstraction.DTO;
+using ExploreSolution.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,18 +9,22 @@ namespace Explore.Services.Abstraction
     {
         bool AddTour(TourDto tour);
 
-        IList<TourDto> GetAllTours();
+        void AddTourAsync(TourDto tour);
 
-        Task<IEnumerable<TourDto>> GetAllToursAsync();
+        IList<Tour> GetAllTours();
 
-        Task<TourDto> GetTourByNameAsync(string name);
+        Task<IEnumerable<Tour>> GetAllToursAsync();
 
-        TourDto GetTourById(int id);
+        Task<Tour> GetTourByNameAsync(string name);
+
+        Tour GetTourById(int id);
 
         bool UpdateTourById(int id, TourDto tour);
 
-        bool RemoveTourById(int id);
+        void RemoveTourById(int id);
 
-        IList<TourDto> SearchTourByName(string name);
+        void RemoveTourByIdAsync(int id);
+
+        IList<Tour> SearchTourByName(string name);
     }
 }

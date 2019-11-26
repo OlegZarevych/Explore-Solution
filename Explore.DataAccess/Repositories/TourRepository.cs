@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
-using System;
 
 namespace Explore.DataAccess.Repositories
 {
@@ -21,6 +20,12 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
+        public async void AddAsync<T>(T item)
+        {
+            await exploreDb.Tours.AddAsync(item as TourEntity);
+            await exploreDb.SaveChangesAsync();
+        }
+
         public TourEntity FindById(int id)
         {
             return exploreDb.Tours.Where(item => item.TourId == id).SingleOrDefault();
@@ -28,12 +33,19 @@ namespace Explore.DataAccess.Repositories
 
         public IEnumerable<TourEntity> GetAll()
         {
-            return exploreDb.Tours.OrderBy(item => item.Id);
+            return exploreDb.Tours.OrderBy(item => item.TourId);
         }
 
         public void Remove(int id)
         {
             exploreDb.Tours.Remove(this.FindById(id));
+            exploreDb.SaveChanges();
+        }
+
+        public async void RemoveAsync(int id)
+        {
+            exploreDb.Tours.Remove(this.FindById(id));
+            exploreDb.SaveChangesAsync();
         }
 
         public void Update<T>(T item)

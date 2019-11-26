@@ -1,12 +1,12 @@
 ﻿using Explore.Services.Abstraction;
 using ExploreSolution.DTO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ExploreSolution.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ToursController : ControllerBase
     {
@@ -19,25 +19,43 @@ namespace ExploreSolution.API.Controllers
 
         [Authorize]
         [HttpPost]
-        [Route("[action]")]
-        public ActionResult Add([FromBody] TourDto tour)
+        public async Task<IActionResult> Add([FromBody] TourDto tour)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            tourService.AddTour(tour);
+            tourService.AddTourAsync(tour);
 
             return Ok();
         }
 
         [Authorize]
         [HttpGet]
-        [Route("[action]")]
-        public ActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(tourService.GetAllTours());
+            return Ok(await tourService.GetAllToursAsync());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromQuery] int id, [FromBody] TourDto tour)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(tourService.UpdateTourById(id, tour));
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            tourService.RemoveTourByIdAsync(id);
+            return Ok();
         }
     }
 }
