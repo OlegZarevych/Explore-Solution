@@ -1,7 +1,6 @@
 ﻿using Explore.DataAccess.Abstraction.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Explore.DataAccess
 {
     public class ExploreDb : DbContext
