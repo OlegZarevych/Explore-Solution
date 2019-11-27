@@ -1,14 +1,12 @@
-﻿using Explore.DataAccess.Abstraction;
-using Explore.DataAccess.Abstraction.Entities;
+﻿using Explore.DataAccess.Abstraction.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
 
 
 namespace Explore.DataAccess
 {
     public class ExploreDb : DbContext
     {
-        public ExploreDb()
+        public ExploreDb(DbContextOptions options) : base (options)
         {
            Database.EnsureCreated();
         }
@@ -17,8 +15,7 @@ namespace Explore.DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer(@"Server=ZARKOPC5470\SQLEXPRESS02;Database=ExploreDb;Trusted_Connection=True;");
-                optionsBuilder.UseSqlite("Data Source=ExploreDb");
+                //optionsBuilder.UseSqlite("Data Source=ExploreDb");
             }
         }
 

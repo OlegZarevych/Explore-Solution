@@ -9,7 +9,7 @@ namespace Explore.Services.Abstraction
     {
         bool AddTour(TourDto tour);
 
-        void AddTourAsync(TourDto tour);
+        Task<Task> AddTourAsync(TourDto tour);
 
         IList<Tour> GetAllTours();
 
@@ -21,9 +21,11 @@ namespace Explore.Services.Abstraction
 
         bool UpdateTourById(int id, TourDto tour);
 
+        Task<Task> UpdateTourByIdAsync(int id, TourDto tour);
+
         void RemoveTourById(int id);
 
-        void RemoveTourByIdAsync(int id);
+        Task<Task> RemoveTourByIdAsync(int id);
 
         IList<Tour> SearchTourByName(string name);
     }

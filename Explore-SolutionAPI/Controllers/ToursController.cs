@@ -26,7 +26,7 @@ namespace ExploreSolution.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            tourService.AddTourAsync(tour);
+            await tourService.AddTourAsync(tour);
 
             return Ok();
         }
@@ -46,15 +46,15 @@ namespace ExploreSolution.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            return Ok(tourService.UpdateTourById(id, tour));
+            await tourService.UpdateTourByIdAsync(id, tour);
+            return Ok();
         }
 
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            tourService.RemoveTourByIdAsync(id);
+            await tourService.RemoveTourByIdAsync(id);
             return Ok();
         }
     }

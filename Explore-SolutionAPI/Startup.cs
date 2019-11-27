@@ -24,6 +24,8 @@ using ExploreSolution.API.GraphQL.SchemeQl;
 using GraphQL.Server;
 using GraphQL;
 using ExploreSolution.API.Middleware;
+using Explore.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExploreSolution
 {
@@ -40,8 +42,15 @@ namespace ExploreSolution
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<ITourService, TourService>();
-            services.AddSingleton<ITourRepository, TourRepository>();
+
+
+            services.AddDbContext<ExploreDb>(options =>
+            {
+                options.UseSqlServer(@"Server=tcp:exloredb.database.windows.net,1433;Initial Catalog=explore;Persist Security Info=False;User ID=oleg;Password=Passw0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            });
+
+            services.AddScoped<ITourService, TourService>();
+            services.AddScoped<ITourRepository, TourRepository>();
 
             // Graph QL
             services.AddSingleton<TourType>();

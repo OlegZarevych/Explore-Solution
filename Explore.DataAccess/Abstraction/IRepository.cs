@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Explore.DataAccess.Abstraction
 {
@@ -6,7 +7,7 @@ namespace Explore.DataAccess.Abstraction
     {
         void Add<T>(T item);
 
-        void AddAsync<T>(T item);
+        Task<Task> AddAsync<T>(T item);
 
         IEnumerable<T> GetAll();
 
@@ -14,8 +15,10 @@ namespace Explore.DataAccess.Abstraction
 
         void Remove(int id);
 
-        void RemoveAsync(int id);
+        Task<Task> RemoveAsync(int id);
 
         void Update<T>(T item);
+
+        Task<Task> UpdateAsync<T>(T item);
     }
 }

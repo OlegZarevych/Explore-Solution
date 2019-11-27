@@ -27,11 +27,10 @@ namespace Explore.Services.Services
             return true;
         }
 
-        public async void AddTourAsync(TourDto tour)
+        public async Task<Task> AddTourAsync(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
-
-            tourRepo.AddAsync(tourEntity);
+            return Task.FromResult(tourRepo.AddAsync(tourEntity));
         }
 
         public IList<Tour> GetAllTours()
@@ -69,9 +68,9 @@ namespace Explore.Services.Services
             tourRepo.Remove(id);
         }
 
-        public void RemoveTourByIdAsync(int id)
+        public async Task<Task> RemoveTourByIdAsync(int id)
         {
-            tourRepo.RemoveAsync(id);
+            return Task.FromResult(tourRepo.RemoveAsync(id));
         }
 
         public IList<Tour> SearchTourByName(string name)
@@ -88,6 +87,15 @@ namespace Explore.Services.Services
 
             tourRepo.Update(newTour);
             return true;
+        }
+
+        public async Task<Task> UpdateTourByIdAsync(int id, TourDto tour)
+        {
+            var newTour = BaseMapper<TourDto, TourEntity>.Map(tour);
+
+            newTour.TourId = id;
+
+            return Task.FromResult(tourRepo.UpdateAsync(newTour));
         }
     }
 }
