@@ -21,11 +21,10 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
-        public async Task<Task> AddAsync<T>(T item)
+        public async Task AddAsync<T>(T item)
         {
             await exploreDb.Tours.AddAsync(item as TourEntity);
             await exploreDb.SaveChangesAsync();
-            return Task.CompletedTask;
         }
 
         public TourEntity FindById(int id)
@@ -44,11 +43,10 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
-        public async Task<Task> RemoveAsync(int id)
+        public async Task RemoveAsync(int id)
         {
             exploreDb.Tours.Remove(this.FindById(id));
-            exploreDb.SaveChangesAsync();
-            return Task.CompletedTask;
+            await exploreDb.SaveChangesAsync();
         }
 
         public void Update<T>(T item)
@@ -57,11 +55,10 @@ namespace Explore.DataAccess.Repositories
             exploreDb.SaveChanges();
         }
 
-        public async Task<Task> UpdateAsync<T>(T item)
+        public async Task UpdateAsync<T>(T item)
         {
             exploreDb.Tours.Update(item as TourEntity);
             await exploreDb.SaveChangesAsync();
-            return Task.CompletedTask;
         }
     }
 }
