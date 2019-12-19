@@ -1,25 +1,34 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Explore.DataAccess.Repositories
 {
     public class ReservationRepository : IReservationRepository
     {
+        private readonly ExploreDb exploreDb;
+
+        public ReservationRepository(ExploreDb db)
+        {
+            this.exploreDb = db;
+        }
+
         public void Add(ReservationEntity item)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task AddAsync(ReservationEntity item)
+        public async Task AddAsync(ReservationEntity item)
         {
-            throw new System.NotImplementedException();
+            await this.exploreDb.Reservations.AddAsync(item);
         }
 
         public ReservationEntity FindById(int id)
         {
-            throw new System.NotImplementedException();
+            return this.exploreDb.Reservations.Where(item => item.ReservationId == id).SingleOrDefault();
         }
 
         public IEnumerable<ReservationEntity> GetAll()
@@ -27,9 +36,17 @@ namespace Explore.DataAccess.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<ReservationEntity>> GetAllAsync()
+        public async Task<IEnumerable<ReservationEntity>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await this.exploreDb.Reservations.ToAsyncEnumerable().ToList();
+        }
+
+        public async Task<IEnumerable<ReservationEntity>> GetReservationByTourNameAsync(string tourName)
+        {
+            return await this.exploreDb.Reservations.
+                Include(item => item.Tour).
+                Where(item => item.Tour.Name == tourName).
+                ToAsyncEnumerable().ToList();
         }
 
         public void Remove(int id)
@@ -37,9 +54,9 @@ namespace Explore.DataAccess.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task RemoveAsync(int id)
+        public async Task RemoveAsync(int id)
         {
-            throw new System.NotImplementedException();
+            this.exploreDb.Reservations.Remove(this.FindById(id));
         }
 
         public void Update(ReservationEntity item)
@@ -47,9 +64,9 @@ namespace Explore.DataAccess.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task UpdateAsync(ReservationEntity item)
+        public async Task UpdateAsync(ReservationEntity item)
         {
-            throw new System.NotImplementedException();
+            this.exploreDb.Reservations.Update(item);
         }
     }
 }
