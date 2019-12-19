@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "51920f08-3f01-4924-897e-c64491914947"
+        },
+        "name": {
+            "value": "ExploreSoulutionAPIUS"
+        },
+        "location": {
+            "value": "West US"
+        },
+        "hostingEnvironment": {
+            "value": ""
+        },
+        "hostingPlanName": {
+            "value": "ASP-ExploreSolution-92ea"
+        },
+        "serverFarmResourceGroup": {
+            "value": "ExploreSolution"
+        },
+        "alwaysOn": {
+            "value": false
+        },
+        "sku": {
+            "value": "Free"
+        },
+        "skuCode": {
+            "value": "F1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "currentStack": {
+            "value": "dotnetcore"
+        },
+        "errorLink": {
+            "value": "https://ExploreSoulutionAPIUS.scm.azurewebsites.net/detectors"
+        }
+    }
+}
