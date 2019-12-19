@@ -8,8 +8,6 @@ namespace Explore.DataAccess.Abstraction.Entities
         [Key]
         public int ReservationId { get; set; }
 
-        public int TourId { get; set; }
-
         [Required]
         [StringLength(200)]
         public string CustomerFullName { get; set; }
