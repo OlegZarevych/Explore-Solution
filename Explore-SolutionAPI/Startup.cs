@@ -46,7 +46,7 @@ namespace ExploreSolution
 
             services.AddDbContext<ExploreDb>(options =>
             {
-                options.UseSqlServer(@"Server=tcp:exloredb.database.windows.net,1433;Initial Catalog=explore;Persist Security Info=False;User ID=oleg;Password=Passw0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                options.UseSqlServer(@"Server=tcp:exploresolutionapidbserver.database.windows.net,1433;Initial Catalog=ExploreSolutionAPI_db;Persist Security Info=False;User ID=oleg;Password=Passw0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             });
 
             services.AddScoped<ITourService, TourService>();
@@ -106,15 +106,16 @@ namespace ExploreSolution
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseHsts();
+            //}
 
+            app.UseDeveloperExceptionPage();
             app.UseMiddleware<CustomHeaderMiddleware>();
 
             app.UseSwagger();
