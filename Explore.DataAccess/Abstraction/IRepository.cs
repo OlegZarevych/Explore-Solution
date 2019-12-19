@@ -5,11 +5,13 @@ namespace Explore.DataAccess.Abstraction
 {
     public interface IRepository<T> where T : class
     {
-        void Add<T>(T item);
+        void Add(T item);
 
-        Task AddAsync<T>(T item);
+        Task AddAsync(T item);
 
         IEnumerable<T> GetAll();
+
+        Task<IEnumerable<T>> GetAllAsync();
 
         T FindById(int id);
 
@@ -17,8 +19,8 @@ namespace Explore.DataAccess.Abstraction
 
         Task RemoveAsync(int id);
 
-        void Update<T>(T item);
+        void Update(T item);
 
-        Task UpdateAsync<T>(T item);
+        Task UpdateAsync(T item);
     }
 }

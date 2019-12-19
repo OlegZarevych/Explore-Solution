@@ -15,16 +15,14 @@ namespace Explore.DataAccess.Repositories
             this.exploreDb = db;
         }
 
-        public void Add<T>(T item)
+        public void Add(TourEntity item)
         {
-            exploreDb.Tours.Add(item as TourEntity);
-            exploreDb.SaveChanges();
+            exploreDb.Tours.Add(item);
         }
 
-        public async Task AddAsync<T>(T item)
+        public async Task AddAsync(TourEntity item)
         {
-            await exploreDb.Tours.AddAsync(item as TourEntity);
-            await exploreDb.SaveChangesAsync();
+            await exploreDb.Tours.AddAsync(item);
         }
 
         public TourEntity FindById(int id)
@@ -37,28 +35,29 @@ namespace Explore.DataAccess.Repositories
             return exploreDb.Tours.OrderBy(item => item.TourId);
         }
 
+        public async Task<IEnumerable<TourEntity>> GetAllAsync()
+        {
+            return await exploreDb.Tours.ToAsyncEnumerable().ToList();
+        }
+
         public void Remove(int id)
         {
             exploreDb.Tours.Remove(this.FindById(id));
-            exploreDb.SaveChanges();
         }
 
         public async Task RemoveAsync(int id)
         {
             exploreDb.Tours.Remove(this.FindById(id));
-            await exploreDb.SaveChangesAsync();
         }
 
-        public void Update<T>(T item)
+        public void Update(TourEntity item)
         {
-            exploreDb.Tours.Update(item as TourEntity);
-            exploreDb.SaveChanges();
+            exploreDb.Tours.Update(item);
         }
 
-        public async Task UpdateAsync<T>(T item)
+        public async Task UpdateAsync(TourEntity item)
         {
-            exploreDb.Tours.Update(item as TourEntity);
-            await exploreDb.SaveChangesAsync();
+            exploreDb.Tours.Update(item);
         }
     }
 }

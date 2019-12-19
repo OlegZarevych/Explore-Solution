@@ -37,8 +37,6 @@ namespace Explore.Services.Services
         {
             var entitiesList = this.tourRepo.GetAll();
 
-            //IEnumerable<TourDto> tours = BaseMapper<IEnumerable<TourEntity>, IEnumerable<TourDto>>.Map(entitiesList);
-
             IList<Tour> tours = new List<Tour>();
 
             entitiesList.ToList().ForEach(i => tours.Add(BaseMapper<TourEntity, Tour>.Map(i)));
@@ -46,9 +44,15 @@ namespace Explore.Services.Services
             return tours;
         }
 
-        public Task<IEnumerable<Tour>> GetAllToursAsync()
+        public async Task<IEnumerable<Tour>> GetAllToursAsync()
         {
-            return Task.FromResult(this.GetAllTours().AsEnumerable());
+            var entitiesList = await this.tourRepo.GetAllAsync();
+
+            IList<Tour> tours = new List<Tour>();
+
+            entitiesList.ToList().ForEach(i => tours.Add(BaseMapper<TourEntity, Tour>.Map(i)));
+
+            return tours;
         }
 
         public Tour GetTourById(int id)
