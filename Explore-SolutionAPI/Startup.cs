@@ -50,7 +50,10 @@ namespace ExploreSolution
             });
 
             services.AddScoped<ITourService, TourService>();
+            services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<ITourRepository, TourRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Graph QL
             services.AddSingleton<TourType>();
