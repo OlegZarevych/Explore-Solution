@@ -16,6 +16,10 @@ namespace Explore.DataAccess.Abstraction.Entities
         [StringLength(15)]
         public string CustomerPhone { get; set; }
 
+        public int PeopleCount { get; set; }
+
+        public decimal ReservationPrice { get; set; }
+
         public TourEntity Tour { get; set; }
 
     }

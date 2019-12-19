@@ -13,10 +13,11 @@ namespace Explore.Services.Services
     public class TourService : ITourService
     {
         private readonly ITourRepository tourRepo;
-
-        public TourService(ITourRepository tourRepo)
+        private readonly IUnitOfWork unitOfWork;
+        public TourService(ITourRepository tourRepo, IUnitOfWork unitOfWork)
         {
             this.tourRepo = tourRepo;
+            this.unitOfWork = unitOfWork;
         }
 
         public bool AddTour(TourDto tour)
@@ -24,13 +25,16 @@ namespace Explore.Services.Services
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
 
             tourRepo.Add(tourEntity);
+
             return true;
         }
 
         public async Task AddTourAsync(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
-            await tourRepo.AddAsync(tourEntity);
+            //await tourRepo.AddAsync(tourEntity);
+            await this.unitOfWork.TourRepository.AddAsync(tourEntity);
+            await this.unitOfWork.CommitAsync();
         }
 
         public IList<Tour> GetAllTours()
