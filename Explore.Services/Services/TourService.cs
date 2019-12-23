@@ -32,14 +32,13 @@ namespace Explore.Services.Services
         public async Task AddTourAsync(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
-            //await tourRepo.AddAsync(tourEntity);
             await this.unitOfWork.TourRepository.AddAsync(tourEntity);
             await this.unitOfWork.CommitAsync();
         }
 
         public IList<Tour> GetAllTours()
         {
-            var entitiesList = this.tourRepo.GetAll();
+            var entitiesList = this.unitOfWork.TourRepository.GetAll();
 
             IList<Tour> tours = new List<Tour>();
 
@@ -50,7 +49,7 @@ namespace Explore.Services.Services
 
         public async Task<IEnumerable<Tour>> GetAllToursAsync()
         {
-            var entitiesList = await this.tourRepo.GetAllAsync();
+            var entitiesList = await this.unitOfWork.TourRepository.GetAllAsync();
 
             IList<Tour> tours = new List<Tour>();
 
@@ -61,24 +60,20 @@ namespace Explore.Services.Services
 
         public Tour GetTourById(int id)
         {
-            var entity = tourRepo.FindById(id);
+            var entity = unitOfWork.TourRepository.FindById(id);
             return BaseMapper<TourEntity, Tour>.Map(entity);
-        }
-
-        public Task<Tour> GetTourByNameAsync(string name)
-        {
-            var entitiesLst = this.GetAllTours();
-            return Task.FromResult(entitiesLst.Single(o => Equals(o.Name, name)));
         }
 
         public void RemoveTourById(int id)
         {
-            tourRepo.Remove(id);
+            unitOfWork.TourRepository.Remove(id);
+            this.unitOfWork.Commit();
         }
 
         public async Task RemoveTourByIdAsync(int id)
         {
-            await tourRepo.RemoveAsync(id);
+            await unitOfWork.TourRepository.RemoveAsync(id);
+            await this.unitOfWork.CommitAsync();
         }
 
         public IList<Tour> SearchTourByName(string name)
@@ -93,7 +88,8 @@ namespace Explore.Services.Services
 
             newTour.TourId = id;
 
-            tourRepo.Update(newTour);
+            this.unitOfWork.TourRepository.Update(newTour);
+            this.unitOfWork.Commit();
             return true;
         }
 
@@ -103,7 +99,8 @@ namespace Explore.Services.Services
 
             newTour.TourId = id;
 
-            await tourRepo.UpdateAsync(newTour);
+            await this.unitOfWork.TourRepository.UpdateAsync(newTour);
+            await this.unitOfWork.CommitAsync();
         }
     }
 }

@@ -15,8 +15,6 @@ namespace Explore.Services.Abstraction
 
         Task<IEnumerable<Tour>> GetAllToursAsync();
 
-        Task<Tour> GetTourByNameAsync(string name);
-
         Tour GetTourById(int id);
 
         bool UpdateTourById(int id, TourDto tour);

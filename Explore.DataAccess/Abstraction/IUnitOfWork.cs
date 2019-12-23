@@ -7,6 +7,10 @@ namespace Explore.DataAccess.Abstraction
     {
         Task<int> CommitAsync();
 
+        int Commit();
+
         ITourRepository TourRepository { get; set; }
+
+        IReservationRepository ReservationRepository { get; set; }
     }
 }
