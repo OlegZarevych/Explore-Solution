@@ -12,11 +12,9 @@ namespace Explore.Services.Services
 {
     public class TourService : ITourService
     {
-        private readonly ITourRepository tourRepo;
         private readonly IUnitOfWork unitOfWork;
-        public TourService(ITourRepository tourRepo, IUnitOfWork unitOfWork)
+        public TourService(IUnitOfWork unitOfWork)
         {
-            this.tourRepo = tourRepo;
             this.unitOfWork = unitOfWork;
         }
 
@@ -24,7 +22,8 @@ namespace Explore.Services.Services
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
 
-            tourRepo.Add(tourEntity);
+            this.unitOfWork.TourRepository.Add(tourEntity);
+            this.unitOfWork.Commit();
 
             return true;
         }
