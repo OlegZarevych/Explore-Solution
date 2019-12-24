@@ -28,6 +28,7 @@ namespace Explore.Services.Services
             }
 
             ReservationEntity reservationEntity = BaseMapper<ReservationDto, ReservationEntity>.Map(reservation);
+            reservationEntity.Tour = tour;
             reservationEntity.ReservationPrice = tour.Price * reservationEntity.PeopleCount;
 
             await this.unitOfWork.ReservationRepository.AddAsync(reservationEntity);
@@ -43,6 +44,11 @@ namespace Explore.Services.Services
             reservation.ToList().ForEach(i => reservationList.Add(BaseMapper<ReservationEntity, Reservation>.Map(i)));
 
             return reservationList;
+        }
+
+        public async Task<IEnumerable<ReservationEntity>> GetAllReservationsByTourNameAsync(string tourName)
+        {
+            return await this.unitOfWork.ReservationRepository.GetReservationByTourNameAsync(tourName);
         }
     }
 }

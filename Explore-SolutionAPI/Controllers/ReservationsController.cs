@@ -39,5 +39,12 @@ namespace ExploreSolution.API.Controllers
             await reservationService.AddReservationAsync(reservation);
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAllReservationByTourName([FromQuery]string tourName)
+        {
+            return Ok(await reservationService.GetAllReservationsByTourNameAsync(tourName));
+        }
     }
 }
