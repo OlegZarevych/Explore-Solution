@@ -3,7 +3,6 @@ using Explore.DataAccess.Repositories;
 using Explore.Services.Services;
 using ExploreSolution.DTO;
 using Microsoft.EntityFrameworkCore;
-using System;
 using Xunit;
 
 namespace Explore.Services.IntegrationTests

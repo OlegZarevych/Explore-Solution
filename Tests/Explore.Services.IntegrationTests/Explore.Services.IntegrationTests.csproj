@@ -15,10 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Explore.DataAccess.Abstraction\Explore.DataAccess.Abstraction.csproj" />
-    <ProjectReference Include="..\Explore.DataAccess\Explore.DataAccess.csproj" />
-    <ProjectReference Include="..\Explore.Dto.Abstraction\Explore.Dto.Abstraction.csproj" />
-    <ProjectReference Include="..\Explore.Services\Explore.Services.csproj" />
+    <ProjectReference Include="..\..\Explore.DataAccess.Abstraction\Explore.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\..\Explore.DataAccess\Explore.DataAccess.csproj" />
+    <ProjectReference Include="..\..\Explore.Services\Explore.Services.csproj" />
   </ItemGroup>
 
 </Project>
