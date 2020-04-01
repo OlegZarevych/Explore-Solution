@@ -11,7 +11,7 @@ namespace Explore.Services.IntegrationTests
     public class TourServiceIntegrationTests
     {
         [Fact]
-        public async void Test1()
+        public async void AddTour_MemoryDb_ShouldBePresentInDb()
         {
             string tourName = "Tour1";
             var options = new DbContextOptionsBuilder<ExploreDb>().UseInMemoryDatabase(databaseName: "Add_writes_to_database").Options;
