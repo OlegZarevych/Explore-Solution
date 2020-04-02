@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Xunit;
 using Moq;
-using Explore.Services.Abstraction;
-using Explore.Dto.Abstraction.DTO;
 using Explore.Services.Services;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Abstraction.Entities;
@@ -35,7 +30,7 @@ namespace Explore.Services.Tests
         }
 
         [Fact]
-        public async void AddTour_ValidTour_ReturnTrue()
+        public async void AddTourAsync_ValidTour_Success()
         {
             // Arrange
             var mock = new Mock<IUnitOfWork>();
@@ -53,6 +48,51 @@ namespace Explore.Services.Tests
 
             // Assert
             mock.Verify(moq => moq.CommitAsync(), Times.Once);
+        }
+
+        [Fact]
+        public void AddTour_ValidTour_ReturnTrue()
+        {
+            // Arrange
+            var mock = new Mock<IUnitOfWork>();
+            mock.Setup(unitOfWork => unitOfWork.TourRepository.AddAsync(It.IsAny<TourEntity>())).Verifiable();
+            mock.Setup(unitOfWork => unitOfWork.Commit()).Verifiable();
+            var tourService = new TourService(mock.Object);
+            TourDto tour = new TourDto()
+            {
+                Name = "TourId",
+                Price = 5
+            };
+
+            // Act
+            var result =  tourService.AddTour(tour);
+
+            // Assert
+            mock.Verify(moq => moq.Commit(), Times.Once);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void UpdateTour_ValidTour_ReturnTrue()
+        {
+            // Arrange
+            var mock = new Mock<IUnitOfWork>();
+            mock.Setup(unitOfWork => unitOfWork.TourRepository.Update(It.IsAny<TourEntity>())).Verifiable();
+            mock.Setup(unitOfWork => unitOfWork.Commit()).Verifiable();
+            var tourService = new TourService(mock.Object);
+            TourDto tour = new TourDto()
+            {
+                Name = "TourId",
+                Price = 5
+            };
+            int tourId = 1;
+
+            // Act
+            var result = tourService.UpdateTourById(tourId, tour);
+
+            // Assert
+            mock.Verify(moq => moq.Commit(), Times.Once);
+            Assert.True(result);
         }
 
         private IEnumerable<TourEntity> GetAllTours()
