@@ -44,8 +44,8 @@ namespace Explore.Services.Tests
             ReservationDto reservation = getReservation();
 
             // Act & Assert
-            var msg = await Assert.ThrowsAsync<Exception>(async () => await reservationService.AddReservationAsync(reservation));
-            Assert.Equal($"No tour with id {reservation.TourId}", msg.Message);
+            var msg = await Assert.ThrowsAsync<ServiceException>(async () => await reservationService.AddReservationAsync(reservation));
+            Assert.Equal($"Exception occur in service : No tour with id {reservation.TourId}", msg.Message);
         }
 
         private static ReservationDto getReservation()
