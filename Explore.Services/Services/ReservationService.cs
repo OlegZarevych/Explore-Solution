@@ -24,7 +24,7 @@ namespace Explore.Services.Services
 
             if (tour == null)
             {
-                throw new Exception($"No tour with id {reservation.TourId}");
+                throw new ServiceException($"No tour with id {reservation.TourId}");
             }
 
             ReservationEntity reservationEntity = BaseMapper<ReservationDto, ReservationEntity>.Map(reservation);
