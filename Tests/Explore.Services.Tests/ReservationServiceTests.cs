@@ -3,7 +3,6 @@ using Explore.DataAccess.Abstraction.Entities;
 using Explore.Dto.Abstraction.DTO;
 using Explore.Services.Services;
 using Moq;
-using System;
 using Xunit;
 
 namespace Explore.Services.Tests
@@ -29,7 +28,7 @@ namespace Explore.Services.Tests
 
             // Assert
             mock.Verify(moq => moq.CommitAsync(), Times.Once);
-            Assert.Equal(expected: 10, actualResultPrice);
+            Assert.Equal(expected: 10, actual: actualResultPrice);
         }
 
         [Fact]
