@@ -15,5 +15,7 @@ namespace Explore.Dto.Abstraction.DTO
         public int TourId { get; set; }
 
         public int PeopleCount { get; set; }
+
+        public decimal ReservationPrice { get; set; }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +12,6 @@ using Explore.Services.Services;
 using Explore.Services.Abstraction;
 using Explore.DataAccess.Abstraction;
 using Explore.DataAccess.Repositories;
-using Explore.DataAccess.Abstraction.Entities;
 using ExploreSolution.API.GraphQL.Scheme;
 using ExploreSolution.API.GraphQL;
 using ExploreSolution.API.GraphQL.SchemeQl;
@@ -26,6 +20,9 @@ using GraphQL;
 using ExploreSolution.API.Middleware;
 using Explore.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Builder;
+using Explore.Dto.Abstraction.DTO;
 
 namespace ExploreSolution
 {
@@ -54,6 +51,9 @@ namespace ExploreSolution
             services.AddScoped<ITourRepository, TourRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // OData
+            services.AddOData();
 
             // Graph QL
             services.AddSingleton<TourType>();
@@ -118,6 +118,11 @@ namespace ExploreSolution
             //    app.UseHsts();
             //}
 
+            //OData
+            var builder = new ODataConventionModelBuilder(app.ApplicationServices);
+
+            builder.EntitySet<Reservation>("Reservation");
+
             app.UseDeveloperExceptionPage();
             app.UseMiddleware<CustomHeaderMiddleware>();
 
@@ -129,7 +134,10 @@ namespace ExploreSolution
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routeBuilder => {
+                routeBuilder.EnableDependencyInjection();
+                routeBuilder.Expand().Filter().OrderBy().MaxTop(100).Count();
+            });
         }
     }
 }

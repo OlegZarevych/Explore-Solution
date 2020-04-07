@@ -2,6 +2,7 @@
 using Explore.DataAccess.Abstraction.Entities;
 using Explore.Dto.Abstraction.CustomMapper;
 using Explore.Dto.Abstraction.DTO;
+using Explore.Dto.Abstraction.Mapper;
 using Explore.Services.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -41,8 +42,8 @@ namespace Explore.Services.Services
 
             IList<Reservation> reservationList = new List<Reservation>();
 
-            reservation.ToList().ForEach(i => reservationList.Add(BaseMapper<ReservationEntity, Reservation>.Map(i)));
-
+            reservation.ToList().ForEach(i => reservationList.Add(ReservationMapper.Map(i)));
+            
             return reservationList;
         }
 
