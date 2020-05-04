@@ -5,6 +5,5 @@ namespace Explore.DataAccess.Abstraction
 {
     public interface ITourRepository : IRepository<TourEntity>
     {
-        Task<int> AddTourAsync(TourEntity item);
     }
 }

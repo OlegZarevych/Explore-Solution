@@ -25,12 +25,6 @@ namespace Explore.DataAccess.Repositories
             await exploreDb.Tours.AddAsync(item);
         }
 
-        public async Task<int> AddTourAsync(TourEntity item)
-        {
-            var result = await exploreDb.Tours.AddAsync(item);
-            return result.Entity.TourId;
-        }
-
         public TourEntity FindById(int id)
         {
             return exploreDb.Tours.Where(item => item.TourId == id).SingleOrDefault();

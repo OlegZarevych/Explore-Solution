@@ -31,9 +31,9 @@ namespace Explore.Services.Services
         public async Task<int> AddTourAsync(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
-            int id = await this.unitOfWork.TourRepository.AddTourAsync(tourEntity);
+            await this.unitOfWork.TourRepository.AddAsync(tourEntity);
             await this.unitOfWork.CommitAsync();
-            return id;
+            return tourEntity.TourId;
         }
 
         public IList<Tour> GetAllTours()
