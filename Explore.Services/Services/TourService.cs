@@ -28,11 +28,12 @@ namespace Explore.Services.Services
             return true;
         }
 
-        public async Task AddTourAsync(TourDto tour)
+        public async Task<int> AddTourAsync(TourDto tour)
         {
             TourEntity tourEntity = BaseMapper<TourDto, TourEntity>.Map(tour);
-            await this.unitOfWork.TourRepository.AddAsync(tourEntity);
+            int id = await this.unitOfWork.TourRepository.AddTourAsync(tourEntity);
             await this.unitOfWork.CommitAsync();
+            return id;
         }
 
         public IList<Tour> GetAllTours()

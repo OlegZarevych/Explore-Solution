@@ -9,7 +9,7 @@ namespace Explore.Services.Abstraction
     {
         bool AddTour(TourDto tour);
 
-        Task AddTourAsync(TourDto tour);
+        Task<int> AddTourAsync(TourDto tour);
 
         IList<Tour> GetAllTours();
 

@@ -26,9 +26,9 @@ namespace ExploreSolution.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            await tourService.AddTourAsync(tour);
+            int id = await tourService.AddTourAsync(tour);
 
-            return Ok();
+            return Ok(id);
         }
 
         [Authorize]
